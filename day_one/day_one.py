@@ -11,6 +11,7 @@ def get_input(path):
 if __name__ == '__main__':
     path = "puzzle_input.txt"
     puzzle_input = get_input(path)
+    # puzzle_input = [199, 200, 208, 210, 200, 207, 240, 269, 260, 263]
 
     current_comp_depth = int(puzzle_input[0])
     increase_count = 0
@@ -21,4 +22,23 @@ if __name__ == '__main__':
         current_comp_depth = depth
 
     print(increase_count)
+
+    current_comp_sum_depth = puzzle_input[0] + puzzle_input[1] + puzzle_input[2]
+    total_slice_depth_increase = 0
+
+    for i in range(len(puzzle_input)):
+        try:
+            slice_to_examine = [puzzle_input[i], puzzle_input[i+1], puzzle_input[i+2]]
+            total_of_slice = sum(slice_to_examine)
+            if total_of_slice > current_comp_sum_depth:
+                total_slice_depth_increase += 1
+            current_comp_sum_depth = total_of_slice
+
+        except IndexError:
+            print("All done")
+            break
+    print(total_slice_depth_increase)
+
+
+
 
