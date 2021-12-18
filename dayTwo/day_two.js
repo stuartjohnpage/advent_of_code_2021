@@ -1,5 +1,6 @@
 var HPOS = 0
 var VPOS = 0
+var aim = 0
 
 const fs = require("fs");
 
@@ -11,12 +12,22 @@ const getPuzzleInput = (path) => {
     }
     const distanceDirectionArray = zipToArray(data);
 
-    distanceDirectionArray.forEach(directive => calculateNewPosition(directive));
-    console.log(HPOS);
-    console.log(VPOS)
-    console.log(VPOS * HPOS)
+    // distanceDirectionArray.forEach((directive) =>
+    //   calculateNewPosition(directive)
+    // );
 
-    return data
+    // PART TWO
+
+    distanceDirectionArray.forEach(directive => {
+      calculateNewPositionDayTwo(directive)
+    });
+
+    
+    console.log(VPOS)
+    console.log(HPOS)
+    console.log(HPOS * VPOS)
+
+    return data;
   });
 };
 
@@ -56,3 +67,17 @@ const calculateNewPosition = (directiveArray) => {
     VPOS = VPOS - amount
   }
 }
+
+const calculateNewPositionDayTwo = (directiveArray) => {
+  const direction = directiveArray[0];
+  const amount = Number(directiveArray[1]);
+
+  if (direction === "forward") {
+    HPOS = HPOS + amount;
+    VPOS = VPOS + (aim * amount)
+  } else if (direction === "down") {
+    aim = aim + amount;
+  } else if (direction === "up") {
+    aim = aim - amount;
+  }
+};
